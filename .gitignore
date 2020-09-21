@@ -2,6 +2,9 @@
 .settings/
 build/
 target/
+bin/
 *.iml
+*.jar
 .classpath
 .project
+export.jardesc
