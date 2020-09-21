@@ -23,7 +23,7 @@ import plugins.kernel.roi.roi3d.ROI3DArea;
 
 /**
  * Toolbox to extract regions of interest (ROI) from a labeled image or sequence based on its
- * connected components.<br/>
+ * connected components.<br>
  * This toolbox supersedes the connected components toolbox
  * 
  * @author Alexandre Dufour
@@ -48,12 +48,12 @@ public class LabelExtractor extends EzPlug implements Block, EzStoppable
     public enum ExtractionType
     {
         /**
-         * Extract all connected components with a value that is different from the background.<br/>
+         * Extract all connected components with a value that is different from the background.<br>
          * NB: Touching components with different labels will be <u>fused together</u>
          */
         ANY_LABEL_VS_BACKGROUND,
         /**
-         * Extract all connected components with a value that is different from the background.<br/>
+         * Extract all connected components with a value that is different from the background.<br>
          * NB: Touching components with different labels are extracted <u>separately</u>
          */
         ALL_LABELS_VS_BACKGROUND,
@@ -178,7 +178,7 @@ public class LabelExtractor extends EzPlug implements Block, EzStoppable
      *        available options
      * @param value
      *        this value is interpreted differently depending on the <code>whatToExtract</code>
-     *        parameter:<br/>
+     *        parameter:<br>
      *        <ul>
      *        <li>{@link ExtractionType#ALL_LABELS_VS_BACKGROUND}: the value is that of the
      *        background</li>
@@ -187,7 +187,7 @@ public class LabelExtractor extends EzPlug implements Block, EzStoppable
      *        <li>{@link ExtractionType#SPECIFIC_LABEL}: the value is that of the structures to
      *        extract</li>
      *        </ul>
-     * @return
+     * @return List of ROI
      */
     public static List<ROI> extractLabels(Sequence sequence, ExtractionType whatToExtract, double value)
     {
@@ -214,7 +214,7 @@ public class LabelExtractor extends EzPlug implements Block, EzStoppable
      * Extract ROI in the specified sequence though its connected components (8-connectivity is
      * considered in 2D, and 26-connectivity in 3D). The algorithm uses a fast single-pass sweeping
      * technique that builds a list of intermediate connected components which are eventually fused
-     * according to their connectivity.<br/>
+     * according to their connectivity.<br>
      * NB: in 3D, the algorithm caches some intermediate buffers to disk to save RAM
      * 
      * @param sequence
@@ -228,7 +228,7 @@ public class LabelExtractor extends EzPlug implements Block, EzStoppable
      *        available options
      * @param value
      *        this value is interpreted differently depending on the <code>whatToExtract</code>
-     *        parameter:<br/>
+     *        parameter:<br>
      *        <ul>
      *        <li>{@link ExtractionType#ALL_LABELS_VS_BACKGROUND}: the value is that of the
      *        background</li>
@@ -237,7 +237,7 @@ public class LabelExtractor extends EzPlug implements Block, EzStoppable
      *        <li>{@link ExtractionType#SPECIFIC_LABEL}: the value is that of the structures to
      *        extract</li>
      *        </ul>
-     * @return
+     * @return List of ROI
      */
     public static List<ROI> extractLabels(Sequence sequence, int t, int c, ExtractionType whatToExtract, double value)
     {
