@@ -10,7 +10,7 @@
         <version>1.0.4</version>
     </parent>
 
-    <artifactId>icy-label-extractor</artifactId>
+    <artifactId>label-extractor</artifactId>
     <version>1.5.1</version>
 
     <packaging>jar</packaging>
