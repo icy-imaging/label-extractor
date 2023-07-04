@@ -1,9 +1,22 @@
-package plugins.adufour.roi;
+/*
+ * Copyright (c) 2010-2023. Institut Pasteur.
+ *
+ * This file is part of Icy.
+ * Icy is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Icy is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Icy. If not, see <https://www.gnu.org/licenses/>.
+ */
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+package plugins.adufour.roi;
 
 import icy.image.IcyBufferedImage;
 import icy.roi.ROI;
@@ -12,14 +25,15 @@ import icy.type.DataType;
 import icy.type.collection.array.Array1DUtil;
 import plugins.adufour.blocks.lang.Block;
 import plugins.adufour.blocks.util.VarList;
-import plugins.adufour.ezplug.EzPlug;
-import plugins.adufour.ezplug.EzStoppable;
-import plugins.adufour.ezplug.EzVarDouble;
-import plugins.adufour.ezplug.EzVarEnum;
-import plugins.adufour.ezplug.EzVarSequence;
+import plugins.adufour.ezplug.*;
 import plugins.adufour.vars.lang.VarROIArray;
 import plugins.kernel.roi.roi2d.ROI2DArea;
 import plugins.kernel.roi.roi3d.ROI3DArea;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Toolbox to extract regions of interest (ROI) from a labeled image or sequence based on its
@@ -62,20 +76,20 @@ public class LabelExtractor extends EzPlug implements Block, EzStoppable {
 
         @Override
         public String toString() {
-            String name = super.toString();
+            final String name = super.toString();
             return name.charAt(0) + name.substring(1).toLowerCase().replace('_', ' ');
         }
     }
 
     @Override
-    public void declareInput(VarList inputMap) {
+    public void declareInput(final VarList inputMap) {
         inputMap.add("input sequence", inSeq.getVariable());
         inputMap.add("extract mode", type.getVariable());
         inputMap.add("value", value.getVariable());
     }
 
     @Override
-    public void declareOutput(VarList outputMap) {
+    public void declareOutput(final VarList outputMap) {
         outputMap.add("ROI", outROI);
     }
 
@@ -86,18 +100,18 @@ public class LabelExtractor extends EzPlug implements Block, EzStoppable {
 
     @Override
     protected void execute() {
-        List<ROI> rois = extractLabels(inSeq.getValue(true), type.getValue(), value.getValue());
+        final List<ROI> rois = extractLabels(inSeq.getValue(true), type.getValue(), value.getValue());
 
         if (getUI() != null) {
-            Sequence outputSequence = outSeq.getValue(true);
+            final Sequence outputSequence = outSeq.getValue(true);
 
             outputSequence.beginUpdate();
-            for (ROI roi : rois)
+            for (final ROI roi : rois)
                 outputSequence.addROI(roi);
             outputSequence.endUpdate();
         }
         else {
-            outROI.setValue(rois.toArray(new ROI[rois.size()]));
+            outROI.setValue(rois.toArray(new ROI[0]));
         }
     }
 
@@ -135,7 +149,7 @@ public class LabelExtractor extends EzPlug implements Block, EzStoppable {
          * @param value the pixel value
          * @param label the label value
          */
-        ConnectedComponent(double value, int label) {
+        ConnectedComponent(final double value, final int label) {
             this.imageValue = value;
             this.targetLabel = label;
         }
@@ -169,16 +183,16 @@ public class LabelExtractor extends EzPlug implements Block, EzStoppable {
      *                      </ul>
      * @return List of ROI
      */
-    public static List<ROI> extractLabels(Sequence sequence, ExtractionType whatToExtract, double value) {
-        ArrayList<ROI> roi = new ArrayList<>();
+    public static List<ROI> extractLabels(final Sequence sequence, final ExtractionType whatToExtract, final double value) {
+        final ArrayList<ROI> roi = new ArrayList<>();
 
         int objID = 1;
 
         for (int t = 0; t < sequence.getSizeT(); t++)
             for (int c = 0; c < sequence.getSizeC(); c++) {
-                for (ROI label : extractLabels(sequence, t, c, whatToExtract, value)) {
+                for (final ROI label : extractLabels(sequence, t, c, whatToExtract, value)) {
                     // rename each ROI, but replace the ID
-                    String shortName = label.getName().substring(label.getName().indexOf(" ("));
+                    final String shortName = label.getName().substring(label.getName().indexOf(" ("));
                     label.setName("Object #" + objID++ + shortName);
                     roi.add(label);
                 }
@@ -211,21 +225,21 @@ public class LabelExtractor extends EzPlug implements Block, EzStoppable {
      *                      </ul>
      * @return List of ROI
      */
-    public static List<ROI> extractLabels(Sequence sequence, int t, int c, ExtractionType whatToExtract, double value) {
-        int width = sequence.getSizeX();
-        int height = sequence.getSizeY();
-        int slice = width * height;
-        int depth = sequence.getSizeZ();
-        boolean is3D = depth > 1;
-        DataType dataType = sequence.getDataType_();
+    public static List<ROI> extractLabels(final Sequence sequence, final int t, final int c, final ExtractionType whatToExtract, final double value) {
+        final int width = sequence.getSizeX();
+        final int height = sequence.getSizeY();
+        final int slice = width * height;
+        final int depth = sequence.getSizeZ();
+        final boolean is3D = depth > 1;
+        final DataType dataType = sequence.getDataType_();
 
         final Map<Integer, ConnectedComponent> ccs = new HashMap<>();
         final Map<Integer, ROI> roiMap = new HashMap<>();
 
-        int[] neighborLabels = new int[13];
+        final int[] neighborLabels = new int[13];
         int nbNeighbors = 0;
 
-        boolean extractUserValue = (whatToExtract == ExtractionType.SPECIFIC_LABEL);
+        final boolean extractUserValue = (whatToExtract == ExtractionType.SPECIFIC_LABEL);
 
         // temporary label buffer
         final Sequence labelSequence = new Sequence();
@@ -242,7 +256,7 @@ public class LabelExtractor extends EzPlug implements Block, EzStoppable {
             try {
                 _labelsHere = new int[slice];
             }
-            catch (OutOfMemoryError error) {
+            catch (final OutOfMemoryError error) {
                 // not enough memory --> pass in virtual mode
                 if (!virtual) {
                     labelSequence.setVolatile(true);
@@ -257,7 +271,7 @@ public class LabelExtractor extends EzPlug implements Block, EzStoppable {
 
             // if (is3D) System.out.println("[Label Extractor] First pass (Z" + z + ")");
 
-            Object inputData = sequence.getDataXY(t, z, c);
+            final Object inputData = sequence.getDataXY(t, z, c);
 
             for (int y = 0, inOffset = 0; y < height; y++) {
                 if (Thread.currentThread().isInterrupted())
@@ -306,7 +320,7 @@ public class LabelExtractor extends EzPlug implements Block, EzStoppable {
                             }
                         }
                         else {
-                            int north = inOffset - width;
+                            final int north = inOffset - width;
 
                             if (x == 0) {
                                 // e n n
@@ -342,7 +356,7 @@ public class LabelExtractor extends EzPlug implements Block, EzStoppable {
                     }
                     else {
                         if (y == 0) {
-                            int south = inOffset + width;
+                            final int south = inOffset + width;
 
                             if (x == 0) {
                                 // e e e | e e e
@@ -383,7 +397,7 @@ public class LabelExtractor extends EzPlug implements Block, EzStoppable {
                             }
                         }
                         else if (y == height - 1) {
-                            int north = inOffset - width;
+                            final int north = inOffset - width;
 
                             if (x == 0) {
                                 // e n n | e n n
@@ -431,8 +445,8 @@ public class LabelExtractor extends EzPlug implements Block, EzStoppable {
                             }
                         }
                         else {
-                            int north = inOffset - width;
-                            int south = inOffset + width;
+                            final int north = inOffset - width;
+                            final int south = inOffset + width;
 
                             if (x == 0) {
                                 // e n n | e n n
@@ -450,8 +464,8 @@ public class LabelExtractor extends EzPlug implements Block, EzStoppable {
                                 nbNeighbors = 8;
                             }
                             else if (x == width - 1) {
-                                int northwest = north - 1;
-                                int west = inOffset - 1;
+                                final int northwest = north - 1;
+                                final int west = inOffset - 1;
 
                                 // n n e | n n e
                                 // n n e | n x e
@@ -469,11 +483,11 @@ public class LabelExtractor extends EzPlug implements Block, EzStoppable {
                                 nbNeighbors = 9;
                             }
                             else {
-                                int northwest = north - 1;
-                                int west = inOffset - 1;
-                                int northeast = north + 1;
-                                int southwest = south - 1;
-                                int southeast = south + 1;
+                                final int northwest = north - 1;
+                                final int west = inOffset - 1;
+                                final int northeast = north + 1;
+                                final int southwest = south - 1;
+                                final int southeast = south + 1;
 
                                 // n n n | n n n
                                 // n n n | n x .
@@ -506,7 +520,7 @@ public class LabelExtractor extends EzPlug implements Block, EzStoppable {
                     int currentLabel = Integer.MAX_VALUE;
 
                     for (int i = 0; i < nbNeighbors; i++) {
-                        int neighborLabel = neighborLabels[i];
+                        final int neighborLabel = neighborLabels[i];
 
                         // "zero" neighbors belong to the background...
                         if (neighborLabel == 0)
@@ -536,17 +550,17 @@ public class LabelExtractor extends EzPlug implements Block, EzStoppable {
                         // -> browse the neighborhood again
                         // --> fuse high labels with low labels
 
-                        ConnectedComponent currentCC = ccs.get(currentLabel);
-                        int currentTargetLabel = currentCC.getTargetLabel();
+                        final ConnectedComponent currentCC = ccs.get(currentLabel);
+                        final int currentTargetLabel = currentCC.getTargetLabel();
 
                         for (int i = 0; i < nbNeighbors; i++) {
-                            int neighborLabel = neighborLabels[i];
+                            final int neighborLabel = neighborLabels[i];
 
                             if (neighborLabel == 0)
                                 continue; // no object in this pixel
 
-                            ConnectedComponent neighborCC = ccs.get(neighborLabel);
-                            int neighborTargetLabel = neighborCC.getTargetLabel();
+                            final ConnectedComponent neighborCC = ccs.get(neighborLabel);
+                            final int neighborTargetLabel = neighborCC.getTargetLabel();
 
                             if (neighborTargetLabel == currentTargetLabel)
                                 continue;
@@ -601,7 +615,7 @@ public class LabelExtractor extends EzPlug implements Block, EzStoppable {
         int finalLabel = 0;
 
         for (int currentLabel = highestKnownLabel; currentLabel > 0; currentLabel--) {
-            ConnectedComponent currentCC = ccs.get(currentLabel);
+            final ConnectedComponent currentCC = ccs.get(currentLabel);
 
             // if the target label is higher than or equal to the current label
             if (currentCC.targetLabel >= currentLabel) {
@@ -637,7 +651,7 @@ public class LabelExtractor extends EzPlug implements Block, EzStoppable {
                         continue;
 
                     // retrieve the image value (for naming purposes)
-                    double imageValue = ccs.get(targetLabel).imageValue;
+                    final double imageValue = ccs.get(targetLabel).imageValue;
 
                     // if a fusion was indicated, retrieve the final label value
                     targetLabel = ccs.get(targetLabel).getTargetLabel();
@@ -645,7 +659,7 @@ public class LabelExtractor extends EzPlug implements Block, EzStoppable {
                     // store the current pixel in the component
                     if (is3D) {
                         if (!roiMap.containsKey(targetLabel)) {
-                            ROI3DArea roi3D = new ROI3DArea();
+                            final ROI3DArea roi3D = new ROI3DArea();
                             roi3D.setName("Object #" + targetLabel + " (value: " + imageValue + ")");
                             roi3D.setT(t);
                             roi3D.setC(c);
@@ -656,7 +670,7 @@ public class LabelExtractor extends EzPlug implements Block, EzStoppable {
                     }
                     else {
                         if (!roiMap.containsKey(targetLabel)) {
-                            ROI2DArea roi2D = new ROI2DArea();
+                            final ROI2DArea roi2D = new ROI2DArea();
                             roi2D.setName("Object #" + targetLabel + " (value: " + imageValue + ")");
                             roi2D.setZ(0);
                             roi2D.setT(t);
