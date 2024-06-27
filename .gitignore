@@ -1,11 +1,41 @@
-.idea/
-.settings/
-build/
+/build*
+/workspace
+setting.xml
+release/
 target/
-bin/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+icy.log
+
+### IntelliJ IDEA ###
+.idea/
+*.iws
 *.iml
-*.jar
+*.ipr
+
+### Eclipse ###
+.apt_generated
 .classpath
+.factorypath
 .project
-export.jardesc
+.settings
+.springBeans
+.sts4-cache
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
 **/.DS_Store
+Icon?
