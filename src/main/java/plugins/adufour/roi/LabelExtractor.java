@@ -46,7 +46,7 @@ import java.util.Map;
  */
 @IcyPluginName("Label Extractor")
 @IcyPluginIcon(path = "/label-extractor.png")
-public class LabelExtractor extends EzPlug implements Block, EzStoppable {
+public class LabelExtractor extends EzPlug implements EzStoppable {
     EzVarSequence inSeq = new EzVarSequence("Labeled sequence");
 
     EzVarEnum<ExtractionType> type = new EzVarEnum<>("Extract", ExtractionType.values());
@@ -83,18 +83,6 @@ public class LabelExtractor extends EzPlug implements Block, EzStoppable {
             final String name = super.toString();
             return name.charAt(0) + name.substring(1).toLowerCase().replace('_', ' ');
         }
-    }
-
-    @Override
-    public void declareInput(final VarList inputMap) {
-        inputMap.add("input sequence", inSeq.getVariable());
-        inputMap.add("extract mode", type.getVariable());
-        inputMap.add("value", value.getVariable());
-    }
-
-    @Override
-    public void declareOutput(final VarList outputMap) {
-        outputMap.add("ROI", outROI);
     }
 
     @Override
