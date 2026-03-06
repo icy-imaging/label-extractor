@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" id="label-extractor" viewBox="0 0 512 512" width="512" height="512">
+    <rect x="0" y="0" width="100%" height="100%"/>
+    <g>
+        <circle cx="140" cy="190" r="100" fill="#F00"/>
+        <text x="100" y="170" fill="#FFF" font-family="'0xProto'" font-size="150">#9</text>
+    </g>
+    <g>
+        <circle cx="380" cy="380" r="100" fill="#A0A"/>
+        <text x="320" y="360" fill="#FFF" font-family="'0xProto'" font-size="150">#6</text>
+    </g>
+</svg>
