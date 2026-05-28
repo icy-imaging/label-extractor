@@ -5,13 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.bioimageanalysis.icy</groupId>
+        <groupId>fr.icy</groupId>
         <artifactId>pom-icy</artifactId>
-        <version>3.0.0-a.6</version>
+        <version>3.0.0-a.7</version>
     </parent>
 
+    <groupId>fr.icy.extensions</groupId>
     <artifactId>label-extractor</artifactId>
-    <version>2.0.0-a.5</version>
+    <version>2.0.0-a.7</version>
 
     <name>Label extractor</name>
     <description>
@@ -84,16 +85,19 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.bioimageanalysis.icy</groupId>
-            <artifactId>kernel-extension</artifactId>
+            <groupId>fr.icy.extensions</groupId>
+            <artifactId>kernel</artifactId>
+            <version>${fr.icy.extensions.kernel.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.bioimageanalysis.icy</groupId>
+            <groupId>fr.icy.extensions</groupId>
             <artifactId>ezplug</artifactId>
+            <version>${fr.icy.extensions.ezplug.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.bioimageanalysis.icy</groupId>
+            <groupId>fr.icy.extensions</groupId>
             <artifactId>protocols</artifactId>
+            <version>${fr.icy.extensions.protocols.version}</version>
         </dependency>
     </dependencies>
 </project>
