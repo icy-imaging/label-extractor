@@ -7,18 +7,16 @@
     <parent>
         <groupId>fr.icy</groupId>
         <artifactId>pom-icy</artifactId>
-        <version>3.0.0-a.7</version>
+        <version>3.0.0-a.8-SNAPSHOT</version>
     </parent>
 
-    <groupId>fr.icy.extensions</groupId>
+    <groupId>fr.icy.extension</groupId>
     <artifactId>label-extractor</artifactId>
-    <version>2.0.0-a.7</version>
+    <version>2.0.0-a.8-SNAPSHOT</version>
 
-    <name>Label extractor</name>
-    <description>
-        Extracts labeled objects from a binary or labeled image into ROI using connected component analysis
-    </description>
-    <url>https://icy.bioimageanalysis.org/</url>
+    <name>Label Extractor</name>
+    <description>Extracts labeled objects from a binary or labeled image into ROI using connected component analysis</description>
+    <url>http://icy.fr/</url>
     <inceptionYear>2014</inceptionYear>
 
     <scm>
@@ -50,13 +48,6 @@
 
     <developers>
         <developer>
-            <id>adufour</id>
-            <name>Alexandre Dufour</name>
-            <organization>Institut Pasteur</organization>
-            <organizationUrl>https://pasteur.fr</organizationUrl>
-            <url>https://icy.bioimageanalysis.org/author/adufour/</url>
-        </developer>
-        <developer>
             <id>tmusset</id>
             <name>Thomas Musset</name>
             <organization>Institut Pasteur</organization>
@@ -67,7 +58,14 @@
 
     <contributors>
         <contributor>
-            <name>none</name>
+            <name>Alexandre Dufour</name>
+        </contributor>
+        <contributor>
+            <name>Stéphane Dallongeville</name>
+        </contributor>
+        <contributor>
+            <name>Thomas Musset</name>
+            <properties><id>Azargas</id></properties>
         </contributor>
     </contributors>
 
@@ -85,19 +83,19 @@
 
     <dependencies>
         <dependency>
-            <groupId>fr.icy.extensions</groupId>
+            <groupId>fr.icy.extension</groupId>
             <artifactId>kernel</artifactId>
-            <version>${fr.icy.extensions.kernel.version}</version>
+            <version>${fr.icy.extension.kernel.version}</version>
         </dependency>
         <dependency>
-            <groupId>fr.icy.extensions</groupId>
+            <groupId>fr.icy.extension</groupId>
             <artifactId>ezplug</artifactId>
-            <version>${fr.icy.extensions.ezplug.version}</version>
+            <version>${fr.icy.extension.ezplug.version}</version>
         </dependency>
         <dependency>
-            <groupId>fr.icy.extensions</groupId>
+            <groupId>fr.icy.extension</groupId>
             <artifactId>protocols</artifactId>
-            <version>${fr.icy.extensions.protocols.version}</version>
+            <version>${fr.icy.extension.protocols.version}</version>
         </dependency>
     </dependencies>
 </project>

@@ -1,4 +1,4 @@
-![Version 2.0.0 alpha 7](https://img.shields.io/badge/v2.0.0-alpha_7-royalblue)
+![Version 2.0.0 alpha 8](https://img.shields.io/badge/v2.0.0-alpha_8-royalblue)
 ![Java 17+](https://img.shields.io/badge/OpenJDK-17+-5382A1?labelColor=E76F00)
 [![License: LGPL v3](https://img.shields.io/badge/LGPLv3-008033?logo=GPLv3&logoSize=auto)](https://www.gnu.org/licenses/lgpl-3.0)
 [![Twitter](https://img.shields.io/twitter/follow/Icy_BioImaging)](https://x.com/Icy_BioImaging)
@@ -12,8 +12,6 @@ Icy is developed and maintained by [Biological Image Analysis unit at Institut P
 ## Extension description
 
 Extracts labeled objects from a binary or labeled image into ROI using connected component analysis.
-<br>
-More detailed user documentation can be found on the Label Extractor documentation page on the Icy website: https://icy.bioimageanalysis.org/plugin/label-extractor/
 
 ## Installation instructions
 
@@ -38,9 +36,9 @@ More detailed user documentation can be found on the Label Extractor documentati
 Add this dependency block in your `pom.xml`
 ```xml
 <dependency>
-    <groupId>fr.icy.extensions</groupId>
+    <groupId>fr.icy.extension</groupId>
     <artifactId>label-extractor</artifactId>
-    <version>${fr.icy.extensions.label-extractor.version}</version>
+    <version>${fr.icy.extension.label-extractor.version}</version>
 </dependency>
 ```
 
@@ -54,5 +52,6 @@ https://icy.bioimageanalysis.org
 
 ## Author(s)
 
-- Alexandre 
+- Alexandre Dufour
+- Stéphane Dallongeville
 - Thomas Musset

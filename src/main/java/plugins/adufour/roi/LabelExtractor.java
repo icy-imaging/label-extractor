@@ -266,7 +266,7 @@ public class LabelExtractor extends EzPlug implements EzStoppable {
                     return new ArrayList<>();
 
                 for (int x = 0; x < width; x++, inOffset++) {
-                    final double currentImageValue = Array1DUtil.getValue(inputData, inOffset, dataType);
+                    final double currentImageValue = Array1DUtil.getValueAsDouble(inputData, inOffset, dataType);
                     final boolean pixelEqualsUserValue = (currentImageValue == value);
 
                     // do not process the current pixel if:
